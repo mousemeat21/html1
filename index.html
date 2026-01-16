@@ -50,6 +50,7 @@
             text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
             margin-bottom: 2rem;
             text-align: center;
+            padding: 0 20px;
         }
         .enter-btn {
             padding: 15px 50px;
@@ -94,6 +95,7 @@
             cursor: pointer;
             padding: 8px 16px;
             transition: 0.3s;
+            white-space: nowrap;
         }
         .tab-btn:hover { color: #fff; }
         .tab-btn.active {
@@ -106,7 +108,7 @@
         .scene { display: none; animation: slideUp 0.6s ease; }
         .scene.active { display: block; }
 
-        /* 개요 (Overview) */
+        /* 개요 */
         .overview-container {
             text-align: center;
             padding: 40px 0;
@@ -122,7 +124,6 @@
         }
         .overview-img {
             max-width: 45%;
-            min-width: 300px;
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             cursor: zoom-in;
@@ -135,6 +136,7 @@
             color: var(--accent-color);
             margin-bottom: 20px;
             font-weight: bold;
+            line-height: 1.3;
         }
         .sub-text {
             font-size: 1.2rem;
@@ -142,22 +144,19 @@
             margin: 0 auto;
             color: #ccc;
             white-space: pre-line;
+            padding: 0 20px;
         }
 
-        /* 프롤로그 (Webtoon) */
+        /* 프롤로그 */
         .webtoon-scroll {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 0;
         }
-        .webtoon-img {
-            width: 100%;
-            max-width: 800px;
-            display: block;
-        }
+        .webtoon-img { width: 100%; max-width: 800px; display: block; }
 
-        /* 주요 설정 (Settings) */
+        /* 주요 설정 */
         .setting-list { display: grid; gap: 20px; }
         .setting-item {
             background: var(--panel-bg);
@@ -172,13 +171,13 @@
             font-weight: bold;
         }
 
-        /* 주연 (Main Characters) */
+        /* 주연 (Grid Fix) */
         .char-section { display: flex; flex-direction: column; gap: 50px; }
         .main-char-card {
             background: var(--panel-bg);
             padding: 30px;
             border-radius: 15px;
-            margin-bottom: 50px; /* 카드 간 간격 */
+            margin-bottom: 50px;
         }
         .char-header {
             font-size: 2rem;
@@ -189,48 +188,39 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
         }
         .wardrobe-toggle {
             font-size: 1rem;
-            padding: 8px 20px;
+            padding: 5px 15px;
             background: #333;
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
+            border: 1px solid #555;
+            color: #fff;
             cursor: pointer;
             border-radius: 20px;
-            transition: 0.3s;
         }
-        .wardrobe-toggle:hover { background: var(--accent-color); color: #000; }
-
-        .char-desc { margin-bottom: 30px; font-size: 1.1rem; color: #ccc; }
+        .char-desc { margin-bottom: 25px; font-size: 1.1rem; color: #ccc; }
         
-        /* [수정됨] 메인 캐릭터 그리드 - 이미지가 더 크게 보이도록 minmax 값 증가 */
         .char-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 200px -> 280px로 변경 */
+            grid-template-columns: repeat(3, 1fr); /* 무조건 3열 유지 */
             gap: 20px;
-            justify-items: center; /* 중앙 정렬 */
         }
+        
         .img-wrapper {
             position: relative;
             cursor: pointer;
             border-radius: 8px;
             overflow: hidden;
+            aspect-ratio: 2/3;
             width: 100%;
-            aspect-ratio: 2/3; /* 세로 비율 고정 (카드 느낌) */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            transition: transform 0.3s;
         }
         .img-wrapper img {
             width: 100%; height: 100%; object-fit: cover;
             transition: transform 0.3s;
         }
-        .img-wrapper:hover { transform: translateY(-5px); }
         .img-wrapper:hover img { transform: scale(1.05); }
         
-        /* 스포일러 처리 */
+        /* 스포일러 */
         .spoiler-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -241,6 +231,7 @@
             align-items: center;
             z-index: 10;
             transition: opacity 0.5s;
+            text-align: center;
         }
         .spoiler-text { color: #ff4444; font-weight: bold; margin-bottom: 5px; font-size: 1.2rem; }
         .spoiler-sub { color: #888; font-size: 0.9rem; }
@@ -249,18 +240,18 @@
         .img-caption {
             position: absolute;
             bottom: 0; left: 0; width: 100%;
-            background: rgba(0,0,0,0.8);
-            color: var(--accent-color);
+            background: rgba(0,0,0,0.7);
+            color: white;
             text-align: center;
-            padding: 8px;
+            padding: 8px 0;
             font-size: 1rem;
             font-weight: bold;
         }
 
-        /* 조연 & 추가 조연 (Grid System) */
+        /* 조연 & 추가 조연 (Grid Fix) */
         .sub-char-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 20px;
         }
         .sub-char-item {
@@ -276,13 +267,12 @@
             overflow: hidden;
             margin-bottom: 10px;
             border: 2px solid #333;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
         .thumb-box img { width: 100%; height: 100%; object-fit: cover; }
         .char-name { font-weight: bold; color: var(--accent-color); font-size: 1.1rem; }
 
         /* --- [Modals] --- */
-        /* 이미지 확대 (Lightbox) */
+        /* Lightbox */
         #lightbox {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -292,92 +282,97 @@
             justify-content: center;
             align-items: center;
             cursor: zoom-out;
-            padding: 20px;
         }
         #lightbox img {
-            max-width: 100%; max-height: 100%;
+            max-width: 95%; max-height: 95%;
             border: 2px solid #fff;
             box-shadow: 0 0 50px rgba(255,255,255,0.1);
         }
 
-        /* 상세 정보 모달 (Detailed Modal) */
+        /* 상세 정보 모달 (Detail Modal) */
         #detail-modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
+            background: rgba(0,0,0,0.9);
             z-index: 15000;
             display: none;
             justify-content: center;
             align-items: center;
             backdrop-filter: blur(8px);
-            padding: 20px;
         }
         .modal-content {
             background: #1a1a1a;
-            width: 100%; max-width: 900px; /* 더 넓게 */
+            width: 90%; max-width: 900px;
             max-height: 90vh;
             overflow-y: auto;
             border-radius: 15px;
             border: 1px solid var(--accent-color);
-            padding: 40px;
+            padding: 30px;
             position: relative;
-            box-shadow: 0 0 40px rgba(0,0,0,0.7);
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
         .close-modal {
-            position: absolute; top: 15px; right: 25px;
-            font-size: 2.5rem; cursor: pointer; color: #fff;
-            transition: 0.3s;
+            position: absolute; top: 15px; right: 20px;
+            font-size: 2.5rem; cursor: pointer; color: #fff; z-index: 5;
         }
-        .close-modal:hover { color: var(--accent-color); }
+        .modal-body { display: flex; flex-direction: column; gap: 20px; }
+        .modal-title { font-size: 2rem; color: var(--accent-color); border-bottom: 1px solid #444; padding-bottom: 10px; }
+        .modal-desc { font-size: 1.1rem; color: #ddd; white-space: pre-wrap; line-height: 1.7; }
         
-        .modal-body { display: flex; flex-direction: column; gap: 30px; }
-        .modal-title { 
-            font-size: 2rem; 
-            color: var(--accent-color); 
-            border-bottom: 2px solid #444; 
-            padding-bottom: 15px; 
-        }
-        .modal-desc { 
-            font-size: 1.15rem; 
-            color: #ddd; 
-            white-space: pre-wrap; 
-            line-height: 1.8; 
-        }
-
-        /* [수정됨] 모달 내부 갤러리 - 이미지 크기 대폭 확대 및 비율 유지 */
+        /* 모달 내부 갤러리 */
         .modal-gallery {
-            display: flex; 
-            gap: 20px; 
-            flex-wrap: wrap; 
-            justify-content: center; 
-            margin-top: 20px;
+            display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 20px;
         }
-        .modal-img-card { 
-            flex: 1 1 300px; /* 최소 300px, 공간 있으면 늘어남 */
-            max-width: 450px; /* 너무 커지지 않게 제한 */
+        /* [수정] 모달 이미지 크기 확대 */
+        .modal-img-card {
+            width: 32%; /* 한 줄에 약 3개 */
+            min-width: 250px; 
+            max-width: 400px;
             position: relative; 
             cursor: zoom-in;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            margin-bottom: 15px;
         }
-        .modal-img-card img { 
-            width: 100%; 
-            height: auto; /* 비율 유지 */
-            display: block; 
-        }
+        .modal-img-card img { width: 100%; height: auto; border-radius: 8px; display: block; }
+        .modal-img-card .img-caption { font-size: 1.1rem; padding: 10px; }
 
         /* Utility */
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* 모바일 대응 */
+        /* --- [Mobile Optimization] --- */
         @media (max-width: 768px) {
-            .overview-img { max-width: 100%; }
-            .tab-nav { gap: 5px; }
-            .tab-btn { font-size: 0.9rem; padding: 5px 10px; }
-            .char-gallery { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); } /* 모바일에서도 적당히 크게 */
-            .modal-content { padding: 20px; }
+            .intro-title { font-size: 2rem; }
+            .enter-btn { padding: 12px 30px; font-size: 1.2rem; }
+            
+            .tab-nav { gap: 5px; padding: 10px 0; }
+            .tab-btn { font-size: 0.85rem; padding: 5px 8px; }
+
+            .overview-img { max-width: 100%; margin-bottom: 10px; }
+            .main-catchphrase { font-size: 1.8rem; }
+            
+            .main-char-card { padding: 15px; }
+            .char-header { font-size: 1.4rem; flex-direction: column; align-items: flex-start; gap: 10px; }
+            
+            /* [수정] 모바일 주연 3장 한 줄 강제 */
+            .char-gallery {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 5px;
+            }
+            .img-caption { font-size: 0.7rem; padding: 4px 0; }
+            .spoiler-text { font-size: 0.8rem; }
+            .spoiler-sub { font-size: 0.6rem; }
+
+            /* [수정] 모바일 조연 3명 한 줄 강제 */
+            .sub-char-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+            .sub-char-item { margin-bottom: 10px; }
+            .char-name { font-size: 0.8rem; }
+
+            /* 모달 모바일 최적화 */
+            .modal-content { padding: 20px; width: 95%; }
+            .modal-img-card { width: 100%; min-width: unset; max-width: unset; } /* 모달 안에서는 크게 보기 위해 한 줄로 */
         }
     </style>
 </head>
@@ -443,12 +438,12 @@
                     </div>
                     <div class="img-wrapper" onclick="revealSpoiler(this, 'https://raw.githubusercontent.com/mousemeat21/PP/refs/heads/main/katint2.webp')">
                         <img src="https://raw.githubusercontent.com/mousemeat21/PP/refs/heads/main/katint2.webp">
-                        <div class="spoiler-overlay"><div class="spoiler-text">SPOILER</div><div class="spoiler-sub">16세 (Click to view)</div></div>
+                        <div class="spoiler-overlay"><div class="spoiler-text">SPOILER</div><div class="spoiler-sub">16세 (Click)</div></div>
                         <div class="img-caption">16세</div>
                     </div>
                     <div class="img-wrapper" onclick="revealSpoiler(this, 'https://raw.githubusercontent.com/mousemeat21/PP/refs/heads/main/katint3.webp')">
                         <img src="https://raw.githubusercontent.com/mousemeat21/PP/refs/heads/main/katint3.webp">
-                        <div class="spoiler-overlay"><div class="spoiler-text">SPOILER</div><div class="spoiler-sub">20세 (Click to view)</div></div>
+                        <div class="spoiler-overlay"><div class="spoiler-text">SPOILER</div><div class="spoiler-sub">20세 (Click)</div></div>
                         <div class="img-caption">20세</div>
                     </div>
                 </div>
@@ -469,7 +464,7 @@
                         <div class="spoiler-overlay"><div class="spoiler-text">SPOILER</div><div class="spoiler-sub">20세 마법사복</div></div>
                         <div class="img-caption">20세 마법사복</div>
                     </div>
-                    <p style="grid-column: 1/-1; color:#888; font-size:0.9rem; margin-top:10px; text-align:center;">* 20세 기준으론 '즉위 후' 시작 설정 기준으로 마법사복 외 더 다양한 복장이 존재합니다.</p>
+                    <p style="grid-column: 1/-1; color:#888; font-size:0.9rem; margin-top:10px;">* 20세 기준으론 '즉위 후' 시작 설정 기준으로 마법사복 외 더 다양한 복장이 존재합니다.</p>
                 </div>
             </div>
 
@@ -611,7 +606,7 @@
             const ward = document.getElementById(charId + '-wardrobe');
             if(def.style.display !== 'none') {
                 def.style.display = 'none';
-                ward.style.display = 'grid'; // 그리드 형식 유지하여 크기 보장
+                ward.style.display = 'grid'; // Grid 속성 유지
             } else {
                 def.style.display = 'grid';
                 ward.style.display = 'none';
