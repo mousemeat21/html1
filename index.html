@@ -241,6 +241,15 @@
         .thumb-box img { width: 100%; height: 100%; object-fit: cover; }
         .char-name { font-size: 0.9rem; color: var(--accent-color); font-weight: bold; }
 
+        /* [NEW] 시작설정 그리드 (PC 반응형, 모바일 2열) */
+        .start-setting-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
         /* --- [Modals] --- */
         
         /* 1. 이미지 확대 (Lightbox) - 모바일 테두리 개선 */
@@ -323,6 +332,11 @@
                 width: 100%; /* 한 줄에 하나씩 꽉 차게 */
                 max-width: none;
             }
+
+            /* [NEW] 시작설정 그리드 모바일 2열 강제 */
+            .start-setting-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
             
             /* 글씨 크기 조정 */
             .main-catchphrase { font-size: 1.5rem; }
@@ -344,11 +358,12 @@
     <main id="game-container">
         <nav class="tab-nav">
             <button class="tab-btn active" onclick="openTab('overview', this)">개요</button>
-            <button class="tab-btn" onclick="openTab('prologue', this)">프롤로그</button>
-            <button class="tab-btn" onclick="openTab('settings', this)">설정</button>
+            <button class="tab-btn" onclick="openTab('prologue', this)">프롤로그(웹툰)</button>
+            <button class="tab-btn" onclick="openTab('settings', this)">주요 설정</button>
+            <button class="tab-btn" onclick="openTab('start-settings', this)">시작설정 설명</button>
             <button class="tab-btn" onclick="openTab('main-chars', this)">주연</button>
-            <button class="tab-btn" onclick="openTab('sub-chars', this)">조연</button>
-            <button class="tab-btn" onclick="openTab('extra-chars', this)">추가 조연</button>
+            <button class="tab-btn" onclick="openTab('sub-chars', this)">조연(생일선물)</button>
+            <button class="tab-btn" onclick="openTab('extra-chars', this)">추가 조연(즉위 후)</button>
         </nav>
 
         <section id="overview" class="scene active">
@@ -381,6 +396,31 @@
 
         <section id="settings" class="scene">
             <div class="setting-list" id="setting-list-container"></div>
+        </section>
+
+        <section id="start-settings" class="scene">
+            <div class="overview-container" style="background:none; padding:10px;">
+                <p style="text-align:center; color:#888; margin-bottom:15px; font-size:0.9rem;">
+                    ※ 이미지를 클릭하면 상세 설정 설명이 나옵니다.
+                </p>
+                <div class="start-setting-grid">
+                    
+                    <div class="img-wrapper" onclick="openStartModal('birthday')">
+                        <img src="https://raw.githubusercontent.com/mousemeat21/PP/refs/heads/main/KM2.webp">
+                        <div class="img-caption" style="font-size:1rem; padding:8px;">생일선물 (스토리)</div>
+                    </div>
+
+                    <div class="img-wrapper" onclick="handleSpoilerClick(this, 'coronation')">
+                        <img src="https://raw.githubusercontent.com/mousemeat21/PP/refs/heads/main/st0.webp">
+                        <div class="spoiler-overlay">
+                            <div class="spoiler-text">⚠ 스포일러</div>
+                            <div class="spoiler-sub">클릭하여 확인</div>
+                        </div>
+                        <div class="img-caption" style="font-size:1rem; padding:8px;">즉위 후 (유사 자유모드)</div>
+                    </div>
+
+                </div>
+            </div>
         </section>
 
         <section id="main-chars" class="scene">
@@ -475,9 +515,9 @@
         const settingsData = [
             { t: "나이트리온", d: "엘페르토 황가가 다스리는 제국. '약자를 보호하고 평화를 지킨다' 라는 이념, 이를 실천하는 것을 황족부터 일반 시민까지 자랑으로 여긴다. 공교롭게도, 이와 달리 은근 신분과 사람의 재능으로 차별하고, 멸시하는 사회가 형성되어 있으나, 그럼에도 이념에 맞는 용기와 헌신, 노력을 보이면 앞선 차별과 멸시의 대상 혹은 적이라 할지라도 '진정한 나이트리온의 긍지'라며 칭송한다." },
             { t: "마나", d: "대부분의 생명체가 가진 에너지. 종족 또는 개개인의 체질에 따라 보유량과 감응력이 달라 뛰어난 자가 존재한다면, 열등한 자가 존재하기도 한다. 수련으로 어느정도 개선은 가능하나, 선술되었듯 선천적 혹은 체질에 따라 한계가 존재한다." },
-			{ t: "마나 감응력", d: "높을수록 마법 또는 오러의 효율과 위력이 증폭된다. 하지만 마나를 이용한 공격, 약화 및 저주 계열에도 더 크게 피해를 받는 등 장단점 존재. 그러나 보통 뛰어날수록 재능의 영역으로 치부한다." },
+            { t: "마나 감응력", d: "높을수록 마법 또는 오러의 효율과 위력이 증폭된다. 하지만 마나를 이용한 공격, 약화 및 저주 계열에도 더 크게 피해를 받는 등 장단점 존재. 그러나 보통 뛰어날수록 재능의 영역으로 치부한다." },
             { t: "무감응자", d: "소수의 특정 종족을 제외하면, 대부분의 생명체는 마나를 매우 적게나마 보유한다. 허나 극히 드물게, 극소수의 생명체는 이러한 특이 체질로 태어나게 된다. 체내에 마나가 없어 마법과 오러 사용이 불가능하며, 마나를 이용한 모든 효과에 완전 면역이지만, 이로운 효과 또한 받지 못한다. 이 때문에 사회적으로는 단점이 더 부각되고 실제로도 그런 편인만큼 저주받은 체질로 취급되며, '빈 껍데기'라는 멸칭으로도 불린다." },
-			{ t: "무감응자", d: "마나를 내면을 통해 실체화시켜 발현. 주로 원소, 비전, 치유, 버프 형태로 구분된다. 마법으로 만든 원소는 자연 원소와는 형질이 다르다." },
+            { t: "마법", d: "마나를 내면을 통해 실체화시켜 발현. 주로 원소, 비전, 치유, 버프 형태로 구분된다. 마법으로 만든 원소는 자연 원소와는 형질이 다르다." },
             { t: "오러", d: "마나를 신체를 통해 물리적 실체로 발현. 기사의 자질로 여겨진다. 검기 발산, 신체 능력 강화 등이 가능하다." },
             { t: "신성력", d: "마나와는 형질이 다른, 별개의 힘. 극히 드물게 여성에게만 나타나는 신의 축복과 자질이 있어야만 익히고 사용이 가능하며, 주로 외딴 시골의 소녀 혹은 왕족 혈통에게서 나타난다. 일반적으로 파괴력은 없지만 보호/정화/치유 능력은 마나 마법보다 월등하고, 특히 언데드는 절대적으로 '정화'가 가능하다." }
         ];
@@ -521,6 +561,22 @@
             { name: '칼딤', desc: "마족 제국, 네던의 짝짝이 뿔의 매혹적이고 계산적이지만, 동시에 협조적인 마족 남성. 현 네던의 수장으로써, 대전쟁 시절을 교훈 삼아 평화주의적인 입장을 고수 중이다.", src: "https://raw.githubusercontent.com/mousemeat21/PP/refs/heads/main/int10.webp" },
             { name: '사르파녹', desc: "잉고투브의 설산에 기거 중인 엘더 드래곤. 대전쟁 당시, 마지막 전투에서 당신과 함께 마왕, 그리고 타락한 엘더 드래곤 '소르녹'에게 맞섰다. 최근 다른 엘더 드래곤들처럼, 영생을 살며 지혜를 축적하다 결국 만물의 이치에 통탈해 광폭화하게 되는, '깨달음의 무게'라 불리는 운명이 언제 찾아올지 모른다며 걱정하는 중이다.", src: "https://raw.githubusercontent.com/mousemeat21/PP/refs/heads/main/int12.webp" }
         ];
+
+        // [NEW] 시작설정 데이터
+        const startSettingsData = {
+            birthday: {
+                title: "생일선물 (스토리)",
+                img: "https://raw.githubusercontent.com/mousemeat21/PP/refs/heads/main/KM2.webp",
+                desc: "기본적인 뼈대가 잡힌 이야기를 따라가는 선형적 구조의 시작설정이지만, 살을 어떻게 채워넣을지는 여러분의 자유입니다! 말괄량이 황녀님이 어떤 이유로 여러분을 선택했는지, 그리고 함께 성장하며 어떻게 변하는지와 여러분에게 무슨 감정을 가지고 어떻게 더욱 변해가는지, 즐거우면서도 여러 우여곡절을 함께 겪어보며 여러분과 캐서린만의 이야기를 만들어보세요.",
+                note: "참고: 배드엔딩과 NTR 전개는 일절 존재하지 않습니다."
+            },
+            coronation: {
+                title: "즉위 후 (유사 자유모드)",
+                img: "https://raw.githubusercontent.com/mousemeat21/PP/refs/heads/main/st0.webp",
+                desc: "생일선물(스토리)에서 캐서린이 성인이 된 시점으로부터 약 3년 뒤, 변화된 사정으로 인해 캐서린이 즉위한 후 2개월 뒤를 다루는 시작설정입니다. 어엿한 여제가 되었지만, 여러분 앞에서는 여전히 사랑에 빠진 철부지 소녀로 돌아가는 그녀에게 여제로써 체통을 지키게 할지, 주변의 시선에 아랑곳 않고 받아줄지는 여러분 몫입니다. 그녀와 함께 자국의 행정관, 다른 제국의 사절단, 공무를 집행하며 제국을 통치해보거나, 황성은 물론 나이트리온의 영토를 돌아다니며 꽁냥거리고 모험도 떠나보세요.",
+                note: "참고: 3년이라는 시간 사이에 있었던 떡밥들을 배치해뒀습니다만, 방해 요소가 되지는 않게끔 해두었습니다."
+            }
+        };
 
         window.onload = function() {
             renderSettings();
@@ -649,6 +705,43 @@
                 <div class="modal-title">${data.name}</div>
                 <div class="modal-desc">${data.desc}</div>
                 <div class="modal-gallery">${data.html}</div>
+            `;
+            modal.style.display = 'flex';
+        }
+
+        // [NEW] 시작설정 클릭 핸들러 (스포일러 체크 -> 모달 오픈)
+        function handleSpoilerClick(el, key) {
+            const overlay = el.querySelector('.spoiler-overlay');
+            // 스포일러가 덮여있으면(opacity가 0이 아니면)
+            if (overlay && getComputedStyle(overlay).opacity !== '0') {
+                overlay.style.opacity = '0'; // 걷어내기
+                overlay.style.pointerEvents = 'none'; // 클릭 통과되게 설정
+            } else {
+                // 이미 걷혀있으면 모달 열기
+                openStartModal(key);
+            }
+        }
+
+        // [NEW] 시작설정 모달 열기
+        function openStartModal(key) {
+            const data = startSettingsData[key];
+            const modal = document.getElementById('detail-modal');
+            const body = document.getElementById('modal-body-content');
+
+            body.innerHTML = `
+                <div class="modal-title">${data.title}</div>
+                
+                <div class="modal-gallery" style="margin-bottom:20px;">
+                    <div class="modal-img-card" style="width:100%; max-width:400px; aspect-ratio:auto;">
+                        <img src="${data.img}" style="width:100%; border-radius:8px;">
+                    </div>
+                </div>
+
+                <div class="modal-desc">${data.desc}</div>
+                
+                <div style="background:rgba(212, 175, 55, 0.1); padding:10px; border-radius:5px; border-left:3px solid var(--accent-color); font-size:0.9rem; color:#ccc;">
+                    ${data.note}
+                </div>
             `;
             modal.style.display = 'flex';
         }
