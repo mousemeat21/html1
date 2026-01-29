@@ -26,92 +26,103 @@
             line-height: 1.6;
         }
 
-       /* --- [1. 로맨스 판타지 스타일 인트로] --- */
-        #intro-layer {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            /* 로판 느낌의 부드러운 샴페인/로즈골드 그라데이션 */
-            background: radial-gradient(circle, #fff5f8 0%, #ffe4e1 50%, #fdf5e6 100%);
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.8s ease, visibility 0.8s;
-        }
+/* --- [1. 중세 로맨스 판타지 (고풍스러운 스타일) 인트로] --- */
+#intro-layer {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    /* 깊이감 있는 앤티크 양피지/금빛 배경톤 */
+    background: radial-gradient(ellipse at center, #f7e8c3 0%, #d9b38c 100%);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.8s ease, visibility 0.8s;
+    /* 고풍스러운 패턴 오버레이 (선택사항 - 은은한 질감 추가) */
+    background-image: 
+        radial-gradient(ellipse at center, rgba(255,255,255,0.3) 0%, rgba(0,0,0,0.3) 100%),
+        repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.05) 0px, rgba(212, 175, 55, 0.05) 2px, transparent 2px, transparent 10px);
+}
 
-        /* 배경에 은은한 반짝임 효과 추가 */
-        #intro-layer::before {
-            content: '✨';
-            position: absolute;
-            width: 100%; height: 100%;
-            display: flex; justify-content: space-around; align-items: center;
-            font-size: 2rem; opacity: 0.2; pointer-events: none;
-        }
+.intro-character {
+    width: 80vw;
+    max-width: 450px;
+    height: auto;
+    /* 캐릭터 주변에 성스러운 빛 느낌 */
+    filter: drop-shadow(0 0 30px rgba(255, 223, 128, 0.4));
+    z-index: 1;
+    margin-bottom: -30px; /* 대화창과 살짝 겹치게 */
+}
 
-        .intro-character {
-            width: 85vw;
-            max-width: 450px;
-            height: auto;
-            margin-bottom: -10px; /* 말풍선과 가깝게 배치 */
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
-            z-index: 1;
-        }
+/* 고풍스러운 금장 대화창 버튼 */
+.dialogue-box-btn {
+    position: relative;
+    /* 깊은 밤색 배경으로 금색 글씨 강조 */
+    background: linear-gradient(to bottom, #2c1e1e, #1a0f0f);
+    /* 이중 금장 테두리 */
+    border: 3px solid var(--accent-color);
+    box-shadow: 
+        inset 0 0 10px rgba(0,0,0,0.8), /* 내부 그림자 */
+        0 5px 15px rgba(0,0,0,0.5), /* 외부 그림자 */
+        0 0 0 2px #4a3b2a, /* 바깥쪽 얇은 테두리 */
+        0 0 20px rgba(212, 175, 55, 0.3); /* 금빛 발광 */
+    border-radius: 8px; /* 약간 둥근 모서리 */
+    padding: 25px 40px;
+    cursor: pointer;
+    z-index: 2;
+    max-width: 90%;
+    text-align: center;
+    transition: all 0.4s ease;
+}
 
-        /* 말풍선 스타일의 대사 버튼 */
-        .speech-bubble-btn {
-            position: relative;
-            background: #ffffff;
-            border: 3px solid var(--accent-color);
-            border-radius: 50px; /* 둥근 말풍선 */
-            padding: 20px 50px;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
-            transition: all 0.3s ease;
-            z-index: 2;
-            animation: float 3s infinite ease-in-out; /* 둥둥 떠있는 효과 */
-        }
+/* 호버 시 금빛이 더 강해짐 */
+.dialogue-box-btn:hover {
+    box-shadow: 
+        inset 0 0 20px rgba(212, 175, 55, 0.2),
+        0 5px 25px rgba(212, 175, 55, 0.6),
+        0 0 0 2px var(--accent-color);
+    transform: translateY(-2px); /* 아주 살짝 떠오르는 느낌만 */
+}
 
-        .speech-bubble-btn:hover {
-            transform: scale(1.05);
-            background: var(--accent-color);
-        }
+/* 대사 텍스트 */
+.intro-title {
+    font-family: 'Pretendard', serif; /* 명조체 계열 권장 */
+    font-size: 1.7rem;
+    font-weight: 700;
+    /* 금박 입힌 글씨 느낌 */
+    color: var(--accent-color);
+    background: linear-gradient(to bottom, #ffeeda, #d4af37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    margin: 0;
+    margin-bottom: 10px;
+}
 
-        .speech-bubble-btn:hover .intro-title {
-            color: #fff;
-        }
+/* 클릭 유도 문구 */
+.click-hint {
+    font-size: 0.9rem;
+    color: #a89f94;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+}
+/* 문구 양 옆 장식 */
+.click-hint::before, .click-hint::after {
+    content: '— ✦ —';
+    color: var(--accent-color);
+    opacity: 0.6;
+    margin: 0 10px;
+}
 
-        /* 말풍선 꼬리 */
-        .speech-bubble-btn::after {
-            content: '';
-            position: absolute;
-            top: -20px; left: 50%;
-            transform: translateX(-50%);
-            border-bottom: 20px solid var(--accent-color);
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-        }
 
-        .intro-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #4a4a4a;
-            margin: 0;
-            text-align: center;
-           white-space: nowrap;
-        }
-
-        /* 둥둥 떠있는 애니메이션 */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @media (max-width: 768px) {
-            .intro-character { width: 90vw; }
-            .intro-title { font-size: 1.3rem; }
-            .speech-bubble-btn { padding: 15px 35px; }
-        }
+@media (max-width: 768px) {
+    .intro-character { width: 95vw; margin-bottom: -20px; }
+    .dialogue-box-btn { padding: 20px 25px; width: 90%; }
+    .intro-title { font-size: 1.4rem; }
+    .click-hint { font-size: 0.8rem; }
+    .click-hint::before, .click-hint::after { content: '✦'; margin: 0 5px; }
+}
 
         /* --- [2. Layout & Navigation] --- */
         #game-container {
@@ -399,14 +410,14 @@
     </style>
 </head>
 <body>
-        <div id="intro-layer">
-            <img src="https://raw.githubusercontent.com/mousemeat21/PP/refs/heads/main/ss1.webp" class="intro-character" alt="Intro Character">
+<div id="intro-layer">
+    <img src="https://raw.githubusercontent.com/mousemeat21/PP/refs/heads/main/ss1.webp" class="intro-character" alt="Intro Character">
     
-            <div class="speech-bubble-btn" onclick="startGame()">
-                <h1 class="intro-title">“지금은 근무 중입니다.”</h1>
-                <p style="text-align:center; font-size:0.8rem; color:#888; margin-top:5px;">(클릭하여 시작)</p>
-            </div>
-        </div>
+    <div class="dialogue-box-btn" onclick="startGame()">
+        <h1 class="intro-title">“지금은 근무 중입니다.”</h1>
+        <div class="click-hint">Click to Start</div>
+    </div>
+</div>
 
     <main id="game-container">
         <nav class="tab-nav">
@@ -810,6 +821,7 @@
 </body>
 
 </html>
+
 
 
 
