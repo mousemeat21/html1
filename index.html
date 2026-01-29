@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>지금은 공무 중이라고요</title>
+    <title>지금은 근무 중입니다</title>
     <style>
         /* --- [Global Reset & Theme] --- */
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
@@ -30,7 +30,7 @@
         #intro-layer {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            background: url('https://raw.githubusercontent.com/mousemeat21/PP/refs/heads/main/main.webp') no-repeat center center/cover;
+            background: #000000;
             z-index: 10000;
             display: flex;
             flex-direction: column;
@@ -38,29 +38,41 @@
             align-items: center;
             transition: opacity 0.8s ease, visibility 0.8s;
         }
-        #intro-layer::after {
-            content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
-            background: rgba(0,0,0,0.4);
-            z-index: -1;
+
+        .intro-character {
+            width: 85vw;
+            max-width: 500px;
+            height: auto;
+            margin-bottom: 20px;
+    filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));
+            animation: fadeInImg 1.5s ease;
         }
+
+
         .intro-title {
-            font-size: 3rem;
-            font-weight: 700;
+            font-size: 1.8rem;
+            font-weight: 500;
             color: #fff;
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
-            margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            margin-bottom: 3rem;
             text-align: center;
             padding: 0 20px;
+            letter-spacing: 0.05rem;
+            font-style: italic;
         }
-        .enter-btn {
-            padding: 15px 50px;
-            font-size: 1.4rem;
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px solid var(--accent-color);
-            color: var(--accent-color);
-            cursor: pointer;
-            transition: 0.3s;
-            font-weight: bold;
+
+        .intro-title::before { content: "“"; color: var(--accent-color); margin-right: 10px; font-size: 2.5rem; vertical-align: middle; }
+        .intro-title::after { content: "”"; color: var(--accent-color); margin-left: 10px; font-size: 2.5rem; vertical-align: middle; }
+
+        @keyframes fadeInImg {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* 모바일 대응 */
+        @media (max-width: 768px) {
+            .intro-character { width: 90vw; }
+            .intro-title { font-size: 1.4rem; }
         }
 
         /* --- [2. Layout & Navigation] --- */
@@ -349,9 +361,9 @@
     </style>
 </head>
 <body>
-
     <div id="intro-layer">
-        <h1 class="intro-title">지금은 공무 중이라고요</h1>
+        <img src="https://raw.githubusercontent.com/mousemeat21/PP/refs/heads/main/ss1.webp" class="intro-character" alt="Intro Character">
+        <h1 class="intro-title">지금은 근무 중 입니다</h1>
         <button class="enter-btn" onclick="startGame()">[ 입 장 ]</button>
     </div>
 
@@ -757,6 +769,7 @@
 </body>
 
 </html>
+
 
 
 
